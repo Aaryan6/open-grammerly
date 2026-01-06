@@ -1,0 +1,47 @@
+{
+  "manifest_version": 3,
+  "name": "Open Grammarly",
+  "version": "1.0.0",
+  "description": "AI Writing Assistant using OpenRouter",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "contextMenus"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "service-worker-loader.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Open Grammarly"
+  },
+  "options_page": "options.html",
+  "content_scripts": [
+    {
+      "js": [
+        "assets/index.ts-CH4LjjHC.js"
+      ],
+      "matches": [
+        "<all_urls>"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "resources": [
+        "assets/*",
+        "assets/index.ts-CH4LjjHC.js"
+      ],
+      "use_dynamic_url": false
+    }
+  ]
+}

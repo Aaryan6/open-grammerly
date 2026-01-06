@@ -1,0 +1,37 @@
+{
+  "name": "open-grammerly",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@crxjs/vite-plugin": "^2.3.0",
+    "@tailwindcss/postcss": "^4.1.18",
+    "@types/chrome": "^0.1.32",
+    "@types/diff-match-patch": "^1.0.36",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.2",
+    "autoprefixer": "^10.4.23",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.18",
+    "typescript": "^5.9.3",
+    "vite-tsconfig-paths": "^6.0.3"
+  },
+  "dependencies": {
+    "@esbuild/win32-x64": "^0.27.2",
+    "@rollup/rollup-win32-x64-msvc": "^4.55.1",
+    "diff-match-patch": "^1.0.5",
+    "lucide-react": "^0.562.0",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
+  }
+}

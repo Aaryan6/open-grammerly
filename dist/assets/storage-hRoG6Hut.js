@@ -1,0 +1,1 @@
+const t={openRouterKey:"",selectedModel:"openai/gpt-oss-safeguard-20b",enabled:!0,aggressiveness:.5,mode:"professional"};async function n(){const e=(await chrome.storage.local.get("settings")).settings||{};return{...t,...e}}async function a(s){const e=await n();await chrome.storage.local.set({settings:{...e,...s}})}export{t as D,n as g,a as s};

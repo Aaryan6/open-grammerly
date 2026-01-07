@@ -1,20 +1,36 @@
 # Open Grammarly
 
-An open-source, AI-powered grammar and spelling checker Chrome extension. Uses OpenRouter API to provide real-time writing assistance on any website.
+**The free, open-source alternative to Grammarly.**
+
+A powerful AI-powered grammar and spelling checker that runs entirely in your browser. No subscriptions, no data collection, no limits. Bring your own AI through OpenRouter and get the same real-time writing assistance you'd expect from premium tools.
 
 ![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-4285F4?logo=googlechrome&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)
 ![React](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=black)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?logo=tailwind-css&logoColor=white)
+![License](https://img.shields.io/badge/License-ISC-green.svg)
+
+## Why Open Grammarly?
+
+| Feature | Grammarly Free | Grammarly Premium | Open Grammarly |
+|---------|----------------|-------------------|----------------|
+| Grammar & Spelling | Limited | Full | Full |
+| Monthly Cost | $0 | $12-30/mo | $0 + AI usage |
+| Data Privacy | Collected | Collected | 100% Local |
+| Open Source | No | No | Yes |
+| Custom AI Models | No | No | Yes |
+| Works Offline | No | No | Planned |
 
 ## Features
 
 - **Real-time Grammar Checking** - Automatically detects grammar and spelling errors as you type
 - **Smart Corrections** - Hover over underlined text to see suggestions with one-click fixes
+- **Grammarly-style UI** - Familiar red underlines with clean correction popups
 - **Works Everywhere** - Functions on any website with text inputs, textareas, and contenteditable elements
 - **Multiple Writing Modes** - Choose between Casual, Professional, and Academic styles
 - **Adjustable Aggressiveness** - Control how strict the grammar checking should be
-- **Privacy-Focused** - Your API key is stored locally in your browser
+- **Privacy-First** - Your API key and all settings stay in your browser. Zero data collection.
+- **Bring Your Own AI** - Use any model available on OpenRouter (GPT-4, Claude, Gemini, and more)
 
 ## Screenshots
 
@@ -137,6 +153,10 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## License
 
 This project is open source and available under the [ISC License](LICENSE).
+
+---
+
+**Star this repo if you find it useful!** Help spread the word about the open-source alternative to Grammarly.
 
 ## Acknowledgments
 

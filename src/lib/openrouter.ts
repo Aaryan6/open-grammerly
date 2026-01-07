@@ -29,6 +29,10 @@ CRITICAL RULES:
 4. DO NOT change the meaning or structure of sentences
 5. The "suggestion" must be minimal - change ONLY the specific word(s) with errors
 6. If a sentence is grammatically correct, DO NOT suggest changes
+7. NEVER suggest capitalizing letters WITHIN words - only standalone "i" (the pronoun) should be "I"
+8. DO NOT flag individual letters or parts of words - only flag complete words or phrases
+9. The lowercase "i" is ONLY wrong when it stands ALONE as the pronoun (e.g., "i think" → "I think")
+10. Letters like "i" inside words (like "in", "it", "is", "like", "this") are CORRECT and must NOT be flagged
 
 IMPORTANT GRAMMAR RULES TO FOLLOW:
 - After "doesn't", "don't", "does", "do", "didn't", "can't", "won't", "shouldn't", "couldn't", "wouldn't" → use BASE VERB (no -s/-es)
@@ -36,6 +40,9 @@ IMPORTANT GRAMMAR RULES TO FOLLOW:
 - After "he/she/it" without auxiliary → use VERB+S
   Example: "it works" is CORRECT, "it work" is WRONG
 - "its" = possessive, "it's" = "it is"
+- Standalone "i" (pronoun) → should be "I" (capitalized)
+  Example: "i think" is WRONG → "I think" is CORRECT
+  But "in", "it", "is" are CORRECT as-is
 
 Respond ONLY with a JSON object. No markdown.
 
@@ -202,6 +209,36 @@ function validateAndFixCorrections(originalText: string, response: AnalysisRespo
   const dmp = new diff_match_patch();
   
   response.corrections = response.corrections.filter(c => {
+    // Filter out single-letter corrections that are just case changes (except standalone "i" → "I")
+    if (c.original.length === 1 && c.suggestion.length === 1) {
+      // Only allow "i" → "I" if it's a standalone word (the pronoun)
+      if (c.original === 'i' && c.suggestion === 'I') {
+        // Check if it's actually standalone (surrounded by word boundaries)
+        const before = c.start > 0 ? originalText[c.start - 1] : ' ';
+        const after = c.end < originalText.length ? originalText[c.end] : ' ';
+        const isStandalone = /[\s.,!?;:'"()\[\]{}\-]/.test(before) && /[\s.,!?;:'"()\[\]{}\-]/.test(after);
+        if (!isStandalone) {
+          return false; // Skip - it's "i" inside a word
+        }
+      } else {
+        return false; // Skip other single-letter case changes
+      }
+    }
+
+    // Filter out corrections where original and suggestion differ only by case of a single letter
+    if (c.original.toLowerCase() === c.suggestion.toLowerCase() && 
+        c.original !== c.suggestion &&
+        c.original.length > 1) {
+      // Check if only one character differs in case
+      let diffCount = 0;
+      for (let i = 0; i < c.original.length; i++) {
+        if (c.original[i] !== c.suggestion[i]) diffCount++;
+      }
+      if (diffCount === 1 && c.original.toLowerCase() === c.suggestion.toLowerCase()) {
+        return false; // Skip - just a single letter case change within a word
+      }
+    }
+
     // 1. Check if original text at AI-provided indices matches c.original
     const AI_snippet = originalText.substring(c.start, c.end);
     if (AI_snippet === c.original) return true;

@@ -10,6 +10,7 @@ export class UIInjector {
   private container: HTMLElement;
   private shadowRoot: ShadowRoot;
   private currentTooltip: HTMLElement | null = null;
+  private currentHighlight: HTMLElement | null = null;
   private activeElements: Map<string, ElementData> = new Map();
   private updateScheduled = false;
 
@@ -95,9 +96,6 @@ export class UIInjector {
         display: block !important;
         box-sizing: border-box;
       }
-      .og-underline:hover {
-        background-color: rgba(255, 77, 77, 0.3);
-      }
       .og-grammar, .og-spelling { 
         border-bottom-color: #ff3333;
         background: linear-gradient(45deg, transparent 65%, #ff3333 65%, #ff3333 75%, transparent 75%),
@@ -105,75 +103,69 @@ export class UIInjector {
         background-size: 8px 4px;
       }
       
+      /* Highlight overlay shown on hover */
+      .og-highlight {
+        position: absolute;
+        background: rgba(220, 38, 38, 0.25);
+        pointer-events: none;
+        z-index: 2147483646;
+        border-radius: 2px;
+      }
+      
       .og-tooltip {
         position: fixed;
         background: white;
-        border-radius: 12px;
-        padding: 16px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        border-radius: 8px;
+        padding: 0;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.15);
         z-index: 20000;
         pointer-events: auto;
-        width: 280px;
+        min-width: 200px;
+        max-width: 280px;
         border: 1px solid #e5e7eb;
         color: #111827;
+        overflow: hidden;
       }
-      .og-type {
-        text-transform: uppercase;
-        font-size: 10px;
-        font-weight: 700;
+      .og-title {
+        font-size: 13px;
+        font-weight: 400;
         color: #6b7280;
-        margin-bottom: 4px;
+        padding: 12px 14px 8px;
+        border-bottom: none;
       }
-      .og-suggestion-box {
+      .og-suggestion {
         display: flex;
         align-items: center;
         gap: 8px;
-        margin-bottom: 12px;
-      }
-      .og-original {
-        text-decoration: line-through;
-        color: #9ca3af;
-        font-size: 14px;
-      }
-      .og-suggestion {
-        background: #f3f4f6;
-        padding: 4px 8px;
-        border-radius: 4px;
-        color: #111827;
+        padding: 8px 14px;
+        color: #2563eb;
         font-weight: 600;
-        font-size: 14px;
+        font-size: 15px;
         cursor: pointer;
+        transition: background 0.15s;
       }
       .og-suggestion:hover {
-        background: #e5e7eb;
+        background: #f3f4f6;
       }
-      .og-arrow {
-        color: #9ca3af;
-        font-size: 14px;
-      }
-      .og-actions {
-        display: flex;
-        gap: 8px;
-      }
-      .og-btn {
-        padding: 6px 12px;
-        border-radius: 6px;
-        font-size: 12px;
-        font-weight: 600;
-        cursor: pointer;
-        border: none;
-      }
-      .og-apply {
-        background: #2563eb;
-        color: white;
-      }
-      .og-apply:hover { background: #1d4ed8; }
       .og-dismiss {
-        background: white;
-        color: #4b5563;
-        border: 1px solid #d1d5db;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 14px;
+        color: #6b7280;
+        font-size: 13px;
+        cursor: pointer;
+        border-top: 1px solid #f3f4f6;
+        transition: background 0.15s;
       }
-      .og-dismiss:hover { background: #f9fafb; }
+      .og-dismiss:hover {
+        background: #f9fafb;
+      }
+      .og-dismiss svg {
+        width: 16px;
+        height: 16px;
+        opacity: 0.7;
+      }
       
       .og-textarea-badge {
         position: absolute;
@@ -316,9 +308,10 @@ export class UIInjector {
         underline.style.top = `${r.bottom - 2}px`;
         underline.style.width = `${r.width}px`;
         
-        // Show tooltip on hover instead of click
+        // Show tooltip and highlight on hover
         underline.onmouseenter = (e) => {
           e.stopPropagation();
+          this.showHighlight(rangeRects);
           this.showTooltip(correction, r.left, r.bottom, onApply);
         };
         
@@ -398,20 +391,25 @@ export class UIInjector {
     tooltip.style.left = `${x}px`;
     tooltip.style.top = `${y + 8}px`;
 
+    // Generate title based on correction type
+    const title = correction.type === 'spelling' 
+      ? 'Use the right word' 
+      : correction.type === 'grammar' 
+        ? 'Punctuation problem' 
+        : correction.explanation || 'Suggestion';
+
     tooltip.innerHTML = `
-      <div class="og-type">${correction.type}</div>
-      <div class="og-suggestion-box">
-        <span class="og-original">${correction.original}</span>
-        <span class="og-arrow">→</span>
-        <span class="og-suggestion">${correction.suggestion}</span>
-      </div>
-      <div class="og-actions">
-        <button class="og-btn og-apply">Apply</button>
-        <button class="og-btn og-dismiss">Dismiss</button>
+      <div class="og-title">${title}</div>
+      <div class="og-suggestion">${correction.suggestion}</div>
+      <div class="og-dismiss">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+        </svg>
+        Dismiss
       </div>
     `;
 
-    tooltip.querySelector('.og-apply')?.addEventListener('click', () => {
+    tooltip.querySelector('.og-suggestion')?.addEventListener('click', () => {
       onApply(correction);
       this.closeTooltip();
     });
@@ -437,6 +435,28 @@ export class UIInjector {
       this.currentTooltip.remove();
       this.currentTooltip = null;
     }
+    this.clearHighlight();
+  }
+
+  private showHighlight(rects: DOMRect[]) {
+    this.clearHighlight();
+    
+    rects.forEach(r => {
+      if (r.width === 0) return;
+      
+      const highlight = document.createElement('div');
+      highlight.className = 'og-highlight';
+      highlight.style.left = `${r.left}px`;
+      highlight.style.top = `${r.top}px`;
+      highlight.style.width = `${r.width}px`;
+      highlight.style.height = `${r.height}px`;
+      
+      this.shadowRoot.appendChild(highlight);
+    });
+  }
+
+  private clearHighlight() {
+    this.shadowRoot.querySelectorAll('.og-highlight').forEach(el => el.remove());
   }
 
   public showToast(message: string, type: 'error' | 'warning' | 'success' | 'info' = 'info', options?: { action?: string; onAction?: () => void; duration?: number }) {

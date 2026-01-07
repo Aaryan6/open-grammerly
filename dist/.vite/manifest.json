@@ -9,39 +9,39 @@
     "file": "assets/storage-hRoG6Hut.js",
     "name": "storage"
   },
-  "_style-ByFNWxVt.js": {
-    "file": "assets/style-ByFNWxVt.js",
+  "_style-BKeh8qoh.js": {
+    "file": "assets/style-BKeh8qoh.js",
     "name": "style",
     "css": [
-      "assets/style-D_N7ZxvM.css"
+      "assets/style-DcJU_H9t.css"
     ]
   },
-  "_style-D_N7ZxvM.css": {
-    "file": "assets/style-D_N7ZxvM.css",
-    "src": "_style-D_N7ZxvM.css"
+  "_style-DcJU_H9t.css": {
+    "file": "assets/style-DcJU_H9t.css",
+    "src": "_style-DcJU_H9t.css"
   },
   "options.html": {
-    "file": "assets/options.html-CaOl41Mt.js",
+    "file": "assets/options.html-CnfbQZ8c.js",
     "name": "options.html",
     "src": "options.html",
     "isEntry": true,
     "imports": [
-      "_style-ByFNWxVt.js",
+      "_style-BKeh8qoh.js",
       "_storage-hRoG6Hut.js"
     ]
   },
   "popup.html": {
-    "file": "assets/popup.html-DlJqb4BI.js",
+    "file": "assets/popup.html-nPGLQlck.js",
     "name": "popup.html",
     "src": "popup.html",
     "isEntry": true,
     "imports": [
-      "_style-ByFNWxVt.js",
+      "_style-BKeh8qoh.js",
       "_storage-hRoG6Hut.js"
     ]
   },
   "src/background/index.ts": {
-    "file": "assets/index.ts-DVy_BJQm.js",
+    "file": "assets/index.ts-B2h1Chrp.js",
     "name": "index.ts",
     "src": "src/background/index.ts",
     "isEntry": true,
@@ -50,7 +50,7 @@
     ]
   },
   "src/content/index.ts": {
-    "file": "assets/index.ts-CH4LjjHC.js",
+    "file": "assets/index.ts-Dm9loCrz.js",
     "name": "index.ts",
     "src": "src/content/index.ts",
     "isEntry": true

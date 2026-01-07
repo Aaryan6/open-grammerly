@@ -1,6 +1,6 @@
 {
   "../../../@crx/manifest": {
-    "file": "assets/crx-manifest.js-DT5Oz3JS.js",
+    "file": "assets/crx-manifest.js-GCw_c9l_.js",
     "name": "crx-manifest.js",
     "src": "../../../@crx/manifest",
     "isEntry": true
@@ -9,34 +9,34 @@
     "file": "assets/storage-hRoG6Hut.js",
     "name": "storage"
   },
-  "_style-BKeh8qoh.js": {
-    "file": "assets/style-BKeh8qoh.js",
+  "_style-CldPm6ae.js": {
+    "file": "assets/style-CldPm6ae.js",
     "name": "style",
     "css": [
-      "assets/style-DcJU_H9t.css"
+      "assets/style-DiS08oNe.css"
     ]
   },
-  "_style-DcJU_H9t.css": {
-    "file": "assets/style-DcJU_H9t.css",
-    "src": "_style-DcJU_H9t.css"
+  "_style-DiS08oNe.css": {
+    "file": "assets/style-DiS08oNe.css",
+    "src": "_style-DiS08oNe.css"
   },
   "options.html": {
-    "file": "assets/options.html-CnfbQZ8c.js",
+    "file": "assets/options.html-DMjQP_h3.js",
     "name": "options.html",
     "src": "options.html",
     "isEntry": true,
     "imports": [
-      "_style-BKeh8qoh.js",
+      "_style-CldPm6ae.js",
       "_storage-hRoG6Hut.js"
     ]
   },
   "popup.html": {
-    "file": "assets/popup.html-nPGLQlck.js",
+    "file": "assets/popup.html-CfR8ozZb.js",
     "name": "popup.html",
     "src": "popup.html",
     "isEntry": true,
     "imports": [
-      "_style-BKeh8qoh.js",
+      "_style-CldPm6ae.js",
       "_storage-hRoG6Hut.js"
     ]
   },

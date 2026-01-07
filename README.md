@@ -10,17 +10,6 @@ A powerful AI-powered grammar and spelling checker that runs entirely in your br
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?logo=tailwind-css&logoColor=white)
 ![License](https://img.shields.io/badge/License-ISC-green.svg)
 
-## Why Open Grammarly?
-
-| Feature | Grammarly Free | Grammarly Premium | Open Grammarly |
-|---------|----------------|-------------------|----------------|
-| Grammar & Spelling | Limited | Full | Full |
-| Monthly Cost | $0 | $12-30/mo | $0 + AI usage |
-| Data Privacy | Collected | Collected | 100% Local |
-| Open Source | No | No | Yes |
-| Custom AI Models | No | No | Yes |
-| Works Offline | No | No | Planned |
-
 ## Features
 
 - **Real-time Grammar Checking** - Automatically detects grammar and spelling errors as you type
